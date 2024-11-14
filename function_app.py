@@ -1,5 +1,3 @@
-import json
-import os
 import azure.functions as func
 import logging
 from lib.functions import read_count, increment_count, write_count
