@@ -12,9 +12,14 @@ def count_visitors(req: func.HttpRequest) -> func.HttpResponse:
     file_path = 'visitors.json'
 
     try:
+        logging.info("Start reading")
         count = read_count(file_path)
+        logging.info(f"Read current count: {count}")
         new_count = increment_count(count)
+        logging.info(f"Incremented count: {new_count}")
         write_count(file_path, new_count)
-    except:
-        return func.HttpResponse(-1, status_code=400)
-    return func.HttpResponse(count, status_code=200)
+        logging.info("Wrote new count to file")
+    except Exception as e:
+        logging.error(str(e))
+        return func.HttpResponse(str(-1), status_code=400)
+    return func.HttpResponse(str(count), status_code=200)
